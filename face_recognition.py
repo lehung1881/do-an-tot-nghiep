@@ -335,7 +335,7 @@ class Face_Recognition:
 
                         idn = my_cursor.fetchall()
                         a = [] #mảng ngày
-                        b = []    #mảng lesson_id
+                        b = [] #mảng lesson_id
 
                         for i1 in idn:
                             str2 = ''.join(i1[0])
@@ -701,46 +701,50 @@ class Face_Recognition:
                 features = classifier.detectMultiScale(gray_image, 1.3, 5)
                 coord = []
                 for(x, y, w, h) in features:
-                    cv2.rectangle(img, (x, y), (x+w, y+h), (225, 0, 0), 3)
-                    id, predict = result(img[y:y+h, x:x+w])
-                    #Cat anh
-                    face_cropped = cv2.resize(img[y:y+h, x:x+w], (190, 190))
+                    try:
+                        cv2.rectangle(img, (x, y), (x+w, y+h), (225, 0, 0), 3)
+                        id, predict = result(img[y:y+h, x:x+w])
+                        #Cat anh
+                        face_cropped = cv2.resize(img[y:y+h, x:x+w], (190, 190))
 
-                    conn = mysql.connector.connect(host='localhost', user='root', password=password, database='face_recognizer')
-                    my_cursor = conn.cursor()
+                        conn = mysql.connector.connect(host='localhost', user='root', password=password, database='face_recognizer')
+                        my_cursor = conn.cursor()
 
-                    my_cursor.execute("select Name from student where Student_id="+str(id))
-                    n = my_cursor.fetchone()
+                        my_cursor.execute("select Name from student where Student_id="+str(id))
+                        n = my_cursor.fetchone()
 
-                    n = "+".join(n)
+                        n = "+".join(n)
 
-                    my_cursor.execute("select Roll from student where Student_id=" + str(id))
-                    r = my_cursor.fetchone()
-                    r = "+".join(r)
+                        my_cursor.execute("select Roll from student where Student_id=" + str(id))
+                        r = my_cursor.fetchone()
+                        r = "+".join(r)
 
-                    my_cursor.execute("select Class from student where Student_id=" + str(id))
-                    d = my_cursor.fetchone()
-                    d = "+".join(d)
+                        my_cursor.execute("select Class from student where Student_id=" + str(id))
+                        d = my_cursor.fetchone()
+                        d = "+".join(d)
 
-                    my_cursor.execute("select Student_id from student where Student_id=" + str(id))
-                    i = my_cursor.fetchone()
-                    i = i[0]
-
-                    if predict > 98:
-                        cv2.putText(img, f"ID: {i}", (10, 30), cv2.FONT_HERSHEY_COMPLEX, 0.5, (225, 0, 0), 2)
-                        cv2.putText(img, f"Name: {unidecode.unidecode(n)}", (10, 55), cv2.FONT_HERSHEY_COMPLEX, 0.5, (225, 0, 0), 2)
-                        #cv2.putText(img, f"Do chinh xac: {round(predict, 2)}", (10, 80), cv2.FONT_HERSHEY_COMPLEX, 0.5, (225, 0, 0), 2)
-                        cv2.rectangle(img, (x, y), (x + w, y + h), (225, 0, 0), 2)
-                        self.mark_attendance(i, r, n, d, face_cropped)
-                    else:
-                        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                        cv2.putText(img, "Khong xac dinh", (10, 30), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 2)
-                    coord = [x, y, w, h]
+                        my_cursor.execute("select Student_id from student where Student_id=" + str(id))
+                        i = my_cursor.fetchone()
+                        i = i[0]
+                        #Dự đoán kết quả
+                        if predict > 98:
+                            cv2.putText(img, f"ID: {i}", (10, 30), cv2.FONT_HERSHEY_COMPLEX, 0.5, (225, 0, 0), 2)
+                            cv2.putText(img, f"Name: {unidecode.unidecode(n)}", (10, 55), cv2.FONT_HERSHEY_COMPLEX, 0.5, (225, 0, 0), 2)
+                            #cv2.putText(img, f"Do chinh xac: {round(predict, 2)}", (10, 80), cv2.FONT_HERSHEY_COMPLEX, 0.5, (225, 0, 0), 2)
+                            cv2.rectangle(img, (x, y), (x + w, y + h), (225, 0, 0), 2)
+                            self.mark_attendance(i, r, n, d, face_cropped)
+                        else:
+                            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                            cv2.putText(img, "Khong xac dinh", (10, 30), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 2)
+                        coord = [x, y, w, h]
+                    except:
+                        cv2.putText(img, "Khong xac dinh!", (10, 30), cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255), 2)
                 return coord
 
             def recognize(img, faceCascade):
                 coord = draw_boundray(img, faceCascade)
-                return img
+                return img      
+            
 
             faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 

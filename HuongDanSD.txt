@@ -1,3 +1,5 @@
+Lê Văn Hùng - 2019600006 - Hướng dẫn cài đặt
+
 *)Cài đặt XAMPP MySQL:
   https://www.apachefriends.org/download.html
   -Sau khi đã cài đặt xong,Mở XAMPP lên .Ở cột MySQL và Apeche chọn Start
@@ -16,17 +18,13 @@
 	pip install numpy
 	pip install tkcalendar
    Nếu thiếu thư viện nào bạn cài thêm nhé.
-*)Sau khi đã cài đặt xong Run file login.py để chạy chương trình
-	Bạn có thể đăng nhập bằng tài khoản Admin bằng cách chọn đăng nhập bằng Admin
-	tk:admin 
-	pass:123456
+*)Sau khi đã cài đặt xong Run file main.py để chạy chương trình
 *)Hướng dẫn sử dụng Phần mềm
 -Bạn có thể đăng nhập phần mềm bằng tài khoản admin hoặc tài khoản giáo viên.
-+)Admin: cho phép sử dụng tất cả các chức năng của phần mềm.
++) Admin: cho phép sử dụng tất cả các chức năng của phần mềm.
   *)Sinh viên: Thêm, sửa ,xóa thông tin sinh viên,Chụp ảnh sinh viên bằng Webcam.
 Sau khi đã chụp ảnh sinh viên xong.Chọn Training Data để Train model nhận dạng sinh viên.
   *)Giáo viên: Thêm, sửa ,xóa thông tin giáo viên.
   *)Môn học: Quản lý thông tin môn học,Đăng ký môn học cho sinh viên,Thêm môn học cho giảng viên.(Phải thêm môn học cho sinh viên và giảng viên để điểm danh)
   *)Buổi học: Thêm,sửa,xóa thông tin buổi học của từng môn học.
   *)Xem ảnh:Xem tất cả các ảnh của sinh viên đã chụp trong máy.
-  *)

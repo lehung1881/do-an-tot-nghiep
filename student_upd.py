@@ -502,7 +502,7 @@ class Student:
         if self.var_dep.get() == "Chọn chuyên ngành" or self.var_std_name.get()=="" or self.var_std_id.get()=="" or self.var_div.get()=="":
             messagebox.showerror("Error", "Vui lòng nhập đầy đủ thông tin", parent=self.root)
         elif (self.var_div.get() not in arrayClass):
-            messagebox.showerror("Error", "Tên lớp học không tồn tại ! Vui lòng kiểm tra lại", parent=self.root)
+            messagebox.showerror("Error", "Tên lớp học không tồn tại! Vui lòng kiểm tra lại", parent=self.root)
         else:
             try:
                 conn = mysql.connector.connect(host='localhost', user='root', password=password, database='face_recognizer')
@@ -739,7 +739,7 @@ class Student:
                     cv2.imwrite('./images/{0}/{1}.jpg'.format(id, img_id), img)
                     cv2.imshow("Picture data", img)
                     time.sleep(0.3)
-                    if cv2.waitKey(1) == 13 or int(img_id) == 50:#duyet du 100 anh
+                    if cv2.waitKey(1) == 13 or int(img_id) == 20:#duyet du 100 anh
                         break
                 cap.release()
                 cv2.destroyAllWindows()
